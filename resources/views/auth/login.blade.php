@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('titulo')
-    Regístrate en la aplicación web
+    Iniciar Sesión en BienestarValpo
 @endsection
 
 @section('contenido')
@@ -11,46 +11,13 @@
         <img src="{{asset('img/logo-bienestar.png')}}" alt="imagen del lobo de bienestar">
     </div>
     <div class="md:w-4/12">
-        <form action="{{route('register')}}" method="POST" >
+        <form action="{{route('login')}}" method="POST" novalidate>
             @csrf
-            <div class="mb-5">
-                <label for="name" id="name" class="mb-2 block uppercase text-gray-500 font-bold">
-                    Nombre
-                </label>
-                <input
-                    id="name"
-                    name="name"
-                    type="text"
-                    placeholder="Tu nombre personal"
-                    class="border p-3 w-full rounded-lg @error('name') border-red-500 @enderror"
-                    value="{{old('name')}}"
-                    />
 
-                    @error('name')
-                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">campo nombre es obligatorio</p>                         
-                    @enderror
-
-            </div>
-
-            <div class="mb-5">
-                <label for="username" id="username" class="mb-2 block uppercase text-gray-500 font-bold">
-                    Cuenta
-                </label>
-                <input
-                    id="username"
-                    name="username"
-                    type="text"
-                    placeholder="Nombre o apodo de acceso a su cuenta"
-                    class="border p-3 w-full rounded-lg @error('username') border-red-500 @enderror "
-                    value="{{old('username')}}"
-                    />
-
-                    @error('username')
-                        <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{$message}}</p>                         
-                    @enderror
-                    
-            </div>
-
+            @if(session('mensaje'))
+            <p class="bg-red-500 text-white my-2 rounded-lg text-sm p-2 text-center">{{session('mensaje')}}</p>
+            @endif
+            
             <div class="mb-5">
                 <label for="email" id="email" class="mb-2 block uppercase text-gray-500 font-bold">
                     Correo electronico
@@ -86,24 +53,20 @@
             </div>
 
             <div class="mb-5">
-                <label for="password_confirmation" id="password_confirmation" class="mb-2 block uppercase text-gray-500 font-bold">
-                   Repita su contraseña
-                </label>
-                <input
-                    id="password_confirmation"
-                    name="password_confirmation"
-                    type="password"
-                    placeholder="Repita su contraseña"
-                    class="border p-3 w-full rounded-lg"
 
-                    />
+                <input 
+                type="checkbox"
+                name="remember"
+                >
+                <label class=" text-gray-500 text-sm">Mantener mi sesión abierta</label>
             </div>
+
 
             <div class="mb-5">
 
                 <input 
                 type="submit"
-                value="Crear Cuenta"
+                value="Iniciar sesión"
                 class="bg-sky-600 hover:bg-sky-700 transition-colors cursor-pointer uppercase font-bold w-full p-3 text-white rounded-lg"
                 >
             </div>
